@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎉 Happy Birthday!</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', 'Noto Color Emoji', sans-serif;
+      text-align: center;
+      background: linear-gradient(to top, #ffecd2, #fcb69f);
+      padding: 50px 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #e63946;
+      animation: pop-in 1s ease-in-out;
+    }
+
+    input, button {
+      font-size: 1.2em;
+      padding: 10px;
+      width: 80%;
+      max-width: 300px;
+      margin: 15px auto;
+      display: block;
+      border-radius: 10px;
+    }
+
+    input {
+      border: 2px solid #e76f51;
+    }
+
+    button {
+      background-color: #2a9d8f;
+      color: white;
+      border: none;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #21867a;
+    }
+
+    .message {
+      font-size: 1.5em;
+      margin-top: 30px;
+      white-space: pre-wrap;
+      opacity: 0;
+      animation: fade-in 1s forwards;
+    }
+
+    .animated {
+      animation: bounce 0.6s ease infinite alternate;
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pop-in {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+
+    @keyframes slide-fade-in {
+      0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .gallery {
+      margin-top: 40px;
+    }
+
+    .gallery h2 {
+      font-size: 1.8em;
+      color: #264653;
+      margin-bottom: 10px;
+    }
+
+    .gallery img {
+      width: 90%;
+      max-width: 300px;
+      margin: 10px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      animation: slide-fade-in 0.7s ease forwards;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎉 Surprise 🎆!</h1>
+  <input type="text" id="nameInput" placeholder="Enter your name 🎂" />
+  <button onclick="showWish()">Next 🎈</button>
+
+  <div class="message" id="wishBox"></div>
+
+  <div class="gallery" id="gallery" style="display:none;">
+    <h2>🖼️ Special Pictures Just for You</h2>
+    <img src="pic1.png" alt="Art 1" style="animation-delay: 0s">
+    <img src="pic2.png" alt="Art 2" style="animation-delay: 0.5s">
+    <img src="pic3.png" alt="Art 3" style="animation-delay: 1s">
+  </div>
+
+  <script>
+    function showWish() {
+      const name = document.getElementById('nameInput').value.trim();
+      const box = document.getElementById('wishBox');
+      const gallery = document.getElementById('gallery');
+
+      if (!name) {
+        box.innerHTML = "<div class='message'>Please enter your name 😊</div>";
+        return;
+      }
+
+      const messages = [
+        `🎉 <b>HAPPY BIRTHDAY, ${name.toUpperCase()}!</b> 🎈`,
+        "Wishing you joy, success, and lots of cake! 🎂🎁",
+        `<div class="animated">🎂🎂🎂🎂🎂<br>🍰  B I R T H D A Y  🍰<br>🎂🎂🎂🎂🎂</div>`,
+        "💖 Stay awesome and enjoy your special day! 🥳"
+      ];
+
+      let index = 0;
+      box.innerHTML = `<div class="message">${messages[index]}</div>`;
+      const interval = setInterval(() => {
+        index++;
+        if (index < messages.length) {
+          box.innerHTML = `<div class="message">${messages[index]}</div>`;
+        } else {
+          clearInterval(interval);
+          setTimeout(() => {
+            gallery.style.display = 'block';
+            const images = gallery.querySelectorAll("img");
+            images.forEach((img, i) => {
+              img.style.animationDelay = (i * 0.5) + "s";
+            });
+          }, 1500);
+        }
+      }, 1800);
+    }
+  </script>
+
+</body>
+</html>
